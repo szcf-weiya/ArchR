@@ -74,7 +74,8 @@ addGeneScoreMatrix <- function(
   parallelParam = NULL,
   subThreading = TRUE,
   force = FALSE,
-  logFile = createLogFile("addGeneScoreMatrix")
+  logFile = createLogFile("addGeneScoreMatrix"),
+  version = 2
   ){
 
   .validInput(input = input, name = "input", valid = c("ArchRProj", "character"))
@@ -209,7 +210,8 @@ addGeneScoreMatrix <- function(
   tmpFile = NULL,
   subThreads = 1,
   tstart = NULL,
-  logFile = NULL
+  logFile = NULL,
+  version = 2
   ){
 
   .validInput(input = i, name = "i", valid = c("integer"))
@@ -563,7 +565,8 @@ addGeneScoreMatrix <- function(
         binarize = FALSE,
         addColSums = TRUE,
         addRowSums = TRUE,
-        addRowVarsLog2 = TRUE #add for integration analyses
+        addRowVarsLog2 = TRUE, #add for integration analyses
+        version = version
       )
 
       #Clean Memory
