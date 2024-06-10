@@ -18,6 +18,7 @@
 #' @param binarize A boolean value indicating whether the input matrix should be binarized before calculating deviations.
 #' This is often desired when working with insertion counts.
 #' @param version An integer for which deviations algorithm to use (1 = R native or 2 = C++ native).
+#' @param arrow.version An integer for which arrow style to use (1 = Rle or 2 = indptr)
 #' @param threads The number of threads to be used for parallel computing.
 #' @param verbose A boolean value that determines whether standard output includes verbose sections.
 #' @param parallelParam A list of parameters to be passed for biocparallel/batchtools parallel computing.
@@ -50,6 +51,7 @@ addDeviationsMatrix <- function(
   out = c("z", "deviations"),
   binarize = FALSE,
   version = 2,
+  arrow.version = 2,
   threads = getArchRThreads(),
   verbose = TRUE,
   parallelParam = NULL,
@@ -149,6 +151,7 @@ addDeviationsMatrix <- function(
   args$FUN <- .addDeviationsMatrix
   args$logFile <- logFile
   args$version <- version
+  args$arrow.version = arrow.version
   args$registryDir <- file.path(getOutputDirectory(ArchRProj), paste0(matrixName,"DeviationsRegistry"))
 
   #Remove Project from Args
@@ -181,6 +184,7 @@ addDeviationsMatrix <- function(
   useMatrix = "PeakMatrix",
   matrixName = "Motif", 
   version = 2,
+  arrow.version = 2,
   force = FALSE,
   verbose = TRUE,
   tstart = NULL,
@@ -325,7 +329,8 @@ addDeviationsMatrix <- function(
       addRowSums = FALSE,
       addColSums = FALSE,
       addRowVars = TRUE,
-      addRowMeans = TRUE
+      addRowMeans = TRUE,
+      version = arrow.version
     )
   }
 
@@ -338,7 +343,8 @@ addDeviationsMatrix <- function(
       addRowSums = FALSE,
       addColSums = FALSE,
       addRowVars = TRUE,
-      addRowMeans = TRUE
+      addRowMeans = TRUE,
+      version = arrow.version
     )    
   }
 
